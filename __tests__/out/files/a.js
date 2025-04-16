@@ -1,0 +1,4 @@
+!function() {
+    var o = 'a';
+    console.log(o + o);
+}();
