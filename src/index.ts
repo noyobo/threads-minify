@@ -3,7 +3,7 @@ import path from 'node:path';
 import Piscina from 'piscina';
 import { error } from 'node:console';
 
-export const threadsMinify = (inputDir: string, options?: {
+export const threadsMinify = async (inputDir: string, options?: {
   outputBase: string, outputDir: string
 }) => {
   const { outputDir, outputBase } = options || {};
@@ -11,11 +11,12 @@ export const threadsMinify = (inputDir: string, options?: {
   exploreDir(inputDir, jsFiles);
   const pool = new Piscina({ filename: path.join(__dirname, 'worker.js') });
 
-  Promise.all(jsFiles.map(file => {
+  await Promise.all(jsFiles.map(file => {
     return pool.run({ file, outputDir, outputBase }, { name: 'minify' });
   })).catch((err) => {
     error('Error in minification:', err);
-  })
+    throw err;
+  });
 };
 
 function exploreDir(directory: string, jsFiles: string[]) {
