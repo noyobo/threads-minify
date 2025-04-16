@@ -4,18 +4,21 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "commonjs",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "tsup ./src/index.ts ./src/worker.ts --format cjs --dts",
     "watch": "yarn run build --watch",
-    "test": "vitest"
+    "test": "vitest --run"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
     "standard-version": "^9.5.0",
     "tsup": "^8.4.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
   },
   "dependencies": {
     "@swc/core": "^1.11.21",
