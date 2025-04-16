@@ -9,6 +9,7 @@ export const minifyJS = async (options: { filename?: string; code: string; map?:
     filename: fileName,
     sourceMaps: sourceMaps,
     inputSourceMap: sourceMaps ? map : undefined,
+    minify: true,
     jsc: {
       target: 'es5',
       minify: {

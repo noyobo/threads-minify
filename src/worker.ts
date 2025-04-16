@@ -8,7 +8,7 @@ export const minify = async (options: {
   outputDir?: string;
 }) => {
   const { file, outputDir, outputBase } = options;
-  const mapFile = file.replace(/\.js$/, '.map.js');
+  const mapFile = file.replace(/\.js$/, '.js.map');
   const hasMap = fs.existsSync(mapFile);
   const map = hasMap ? fs.readFileSync(mapFile, 'utf-8') : undefined;
   const code = fs.readFileSync(file, 'utf-8');
@@ -25,10 +25,11 @@ export const minify = async (options: {
     const fileName = relative(outputBase, outputFile);
     outputFile = join(outputDir, fileName);
     if (hasMap) {
-      outputMapFile = outputFile.replace(/\.js$/, '.map.js');
+      outputMapFile = outputFile.replace(/\.js$/, '.js.map');
     }
+    fs.mkdirSync(dirname(outputFile), { recursive: true });
   }
-  fs.mkdirSync(dirname(outputFile), { recursive: true });
+
   fs.writeFileSync(outputFile, result.code);
   if (hasMap && result.map) {
     fs.writeFileSync(outputMapFile, result.map);

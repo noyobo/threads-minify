@@ -1,4 +1,1 @@
-!function() {
-    var o = 'a';
-    console.log(o + o);
-}();
+!function(){var o="a";console.log(o+o)}();
